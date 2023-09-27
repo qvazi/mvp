@@ -25,7 +25,10 @@
     "preview": {
       "name": "preview",
       "command": "yarn preview",
-      "runAtStart": false
+      "runAtStart": false,
+      "preview": {
+        "port": 4173
+      }
     }
   }
 }

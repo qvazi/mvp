@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getPosts } from "../api-sevice/Post";
 
 const useGetPosts = () => {
@@ -13,16 +13,26 @@ export type PostListProps = {
 };
 
 export const PostList = (props: PostListProps) => {
+  const queryClient = useQueryClient();
   const postsQuery = useGetPosts();
 
-  if (postsQuery.isLoading) return "Loading...";
-  if (postsQuery.isFetching) return "Fetching...";
-  if (postsQuery.isError) return "Error";
+  if (postsQuery.isLoading) return <>Loading...</>;
+  if (postsQuery.isFetching) return <>Fetching...</>;
+  if (postsQuery.isError) return <>Error</>;
   if (postsQuery.isSuccess) {
     return (
       <ul>
         {postsQuery.data.map((post) => (
-          <li key={post.id} onClick={() => props.onClickPost(post.id)}>
+          <li
+            key={post.id}
+            style={{
+              padding: "10px",
+              color: queryClient.getQueryData(["getPostById", post.id])
+                ? "green"
+                : "black",
+            }}
+            onClick={() => props.onClickPost(post.id)}
+          >
             {post.title}
           </li>
         ))}

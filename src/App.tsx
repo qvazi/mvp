@@ -1,27 +1,30 @@
 import { useState } from "react";
-import { PostList, PostListProps } from "./components/PostList";
-import { Post } from "./components/Post";
+import { Navigation } from "./components/Navigation";
+import { Articles } from "./pages/Articles";
+import { Login } from "./pages/Login";
+import { Post111 } from "./pages/Post111";
+import { Posts } from "./pages/Posts";
+import { Register } from "./pages/Register";
+
+export type Page =
+  | "home"
+  | "posts"
+  | "login"
+  | "register"
+  | "articles"
+  | "post111";
 
 function App() {
-  const [postId, setPostId] = useState<string | number | null>(null);
-  const handleClickPost: PostListProps["onClickPost"] = (postId) => {
-    setPostId(postId);
-  };
+  const [page, setPage] = useState<Page>("home");
   return (
     <div>
       <h1>app</h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "1rem",
-        }}
-      >
-        <div style={{ flexBasis: "30%" }}>
-          <PostList onClickPost={handleClickPost} />
-        </div>
-        <div style={{ flexBasis: "70%" }}>{postId && <Post id={postId} />}</div>
-      </div>
+      <Navigation setPage={setPage} />
+      {page === "posts" && <Posts />}
+      {page === "login" && <Login />}
+      {page === "register" && <Register />}
+      {page === "articles" && <Articles />}
+      {page === "post111" && <Post111 />}
     </div>
   );
 }

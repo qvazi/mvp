@@ -4,6 +4,7 @@ import { Articles } from "./pages/Articles";
 import { Login } from "./pages/Login";
 import { Post111 } from "./pages/Post111";
 import { Posts } from "./pages/Posts";
+import { TestPromise } from "./pages/TestPromise";
 import { Register } from "./pages/Register";
 
 export type Page =
@@ -19,6 +20,7 @@ function App() {
   return (
     <div>
       <h1>app</h1>
+      <TestPromise />
       <Navigation setPage={setPage} />
       {page === "posts" && <Posts />}
       {page === "login" && <Login />}
